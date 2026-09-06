@@ -3,10 +3,10 @@
  * Builds the inline keyboard of order-status buttons, shared by the initial
  * notification and the in-place edit made after a status change.
  *
- * @package WooPilot\Core\Notifications
+ * @package WooTower\Core\Notifications
  */
 
-namespace WooPilot\Core\Notifications;
+namespace WooTower\Core\Notifications;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

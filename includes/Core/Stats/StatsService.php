@@ -1,14 +1,14 @@
 <?php
 /**
- * Tracks and reads WooPilot's own operational counters — how many orders it
+ * Tracks and reads WooTower's own operational counters — how many orders it
  * has notified about, and how many of those an admin has acted on via the
  * bot. Free-tier scope per ai-rules/01-project.md: real sales analytics
  * (revenue, completion rate, best-sellers) is Pro, not this.
  *
- * @package WooPilot\Core\Stats
+ * @package WooTower\Core\Stats
  */
 
-namespace WooPilot\Core\Stats;
+namespace WooTower\Core\Stats;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,8 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class StatsService {
 
-	private const META_NOTIFIED       = '_woopilot_notified';
-	private const META_STATUS_CHANGED = '_woopilot_status_changed_via_bot';
+	private const META_NOTIFIED       = '_wootower_notified';
+	private const META_STATUS_CHANGED = '_wootower_status_changed_via_bot';
 
 	public function markNotified( int $orderId ): void {
 		$this->setOrderMeta( $orderId, self::META_NOTIFIED );
@@ -28,7 +28,7 @@ class StatsService {
 	}
 
 	/**
-	 * Orders WooPilot has sent a new-order notification for.
+	 * Orders WooTower has sent a new-order notification for.
 	 */
 	public function getNotifiedCount(): int {
 		return $this->countOrdersWithMeta( self::META_NOTIFIED );
@@ -43,7 +43,7 @@ class StatsService {
 
 	/**
 	 * Notified orders nobody has acted on via the bot yet. A status change
-	 * can only happen by tapping a button on a notification WooPilot already
+	 * can only happen by tapping a button on a notification WooTower already
 	 * sent, so "status changed" orders are always a subset of "notified"
 	 * ones — the difference alone gives the right count, with no need for
 	 * a combined query.

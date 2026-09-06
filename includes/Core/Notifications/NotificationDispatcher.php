@@ -5,12 +5,12 @@
  * Depends only on MessagingChannelInterface, never on a concrete channel,
  * so swapping Telegram for another channel later requires no change here.
  *
- * @package WooPilot\Core\Notifications
+ * @package WooTower\Core\Notifications
  */
 
-namespace WooPilot\Core\Notifications;
+namespace WooTower\Core\Notifications;
 
-use WooPilot\Channels\MessagingChannelInterface;
+use WooTower\Channels\MessagingChannelInterface;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -57,11 +57,11 @@ class NotificationDispatcher {
 		);
 
 		/**
-		 * Fires after WooPilot has sent a new-order notification.
+		 * Fires after WooTower has sent a new-order notification.
 		 *
 		 * @param int $orderId The order ID.
 		 */
-		do_action( 'woopilot_new_order_notified', $order['id'] );
+		do_action( 'wootower_new_order_notified', $order['id'] );
 	}
 
 	/**

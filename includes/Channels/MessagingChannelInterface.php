@@ -2,10 +2,10 @@
 /**
  * Contract that every messaging channel (Telegram, WhatsApp, Discord, ...) must implement.
  *
- * @package WooPilot\Channels
+ * @package WooTower\Channels
  */
 
-namespace WooPilot\Channels;
+namespace WooTower\Channels;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

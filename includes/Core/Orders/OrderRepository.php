@@ -2,10 +2,10 @@
 /**
  * Data access layer for orders, backed by WooCommerce's own CRUD classes.
  *
- * @package WooPilot\Core\Orders
+ * @package WooTower\Core\Orders
  */
 
-namespace WooPilot\Core\Orders;
+namespace WooTower\Core\Orders;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

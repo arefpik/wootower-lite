@@ -2,10 +2,10 @@
 /**
  * wp-admin page that hosts and enqueues the dashboard-app React bundle.
  *
- * @package WooPilot\Admin\Dashboard
+ * @package WooTower\Admin\Dashboard
  */
 
-namespace WooPilot\Admin\Dashboard;
+namespace WooTower\Admin\Dashboard;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,15 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class DashboardPage {
 
-	public const MENU_SLUG = 'woopilot-dashboard';
+	public const MENU_SLUG = 'wootower-dashboard';
 
 	private const CAPABILITY    = 'manage_woocommerce';
-	private const SCRIPT_HANDLE = 'woopilot-dashboard';
+	private const SCRIPT_HANDLE = 'wootower-dashboard';
 
 	public function registerMenu(): void {
 		add_menu_page(
-			__( 'WooPilot', 'woopilot' ),
-			__( 'WooPilot', 'woopilot' ),
+			__( 'WooTower', 'wootower' ),
+			__( 'WooTower', 'wootower' ),
 			self::CAPABILITY,
 			self::MENU_SLUG,
 			[ $this, 'render' ],
@@ -31,7 +31,7 @@ class DashboardPage {
 	}
 
 	/**
-	 * Enqueues the built React bundle, but only on WooPilot's own admin
+	 * Enqueues the built React bundle, but only on WooTower's own admin
 	 * screens, and only once it has actually been built.
 	 *
 	 * @param string $hookSuffix Current admin page hook, passed by WordPress.
@@ -41,10 +41,10 @@ class DashboardPage {
 			return;
 		}
 
-		$build_dir = WOOPILOT_PLUGIN_DIR . 'dashboard-app/build/';
-		$build_url = WOOPILOT_PLUGIN_URL . 'dashboard-app/build/';
+		$build_dir = WOOTOWER_PLUGIN_DIR . 'dashboard-app/build/';
+		$build_url = WOOTOWER_PLUGIN_URL . 'dashboard-app/build/';
 
-		$script_path = $build_dir . 'woopilot-dashboard.js';
+		$script_path = $build_dir . 'wootower-dashboard.js';
 
 		if ( ! file_exists( $script_path ) ) {
 			return;
@@ -52,18 +52,18 @@ class DashboardPage {
 
 		wp_enqueue_script(
 			self::SCRIPT_HANDLE,
-			$build_url . 'woopilot-dashboard.js',
+			$build_url . 'wootower-dashboard.js',
 			[],
 			(string) filemtime( $script_path ),
 			true
 		);
 
-		$style_path = $build_dir . 'woopilot-dashboard.css';
+		$style_path = $build_dir . 'wootower-dashboard.css';
 
 		if ( file_exists( $style_path ) ) {
 			wp_enqueue_style(
 				self::SCRIPT_HANDLE,
-				$build_url . 'woopilot-dashboard.css',
+				$build_url . 'wootower-dashboard.css',
 				[],
 				(string) filemtime( $style_path )
 			);
@@ -71,7 +71,7 @@ class DashboardPage {
 
 		wp_localize_script(
 			self::SCRIPT_HANDLE,
-			'woopilotDashboardConfig',
+			'wootowerDashboardConfig',
 			[
 				'restUrl' => esc_url_raw( rest_url() ),
 				'nonce'   => wp_create_nonce( 'wp_rest' ),
@@ -80,6 +80,6 @@ class DashboardPage {
 	}
 
 	public function render(): void {
-		echo '<div id="woopilot-dashboard-root"></div>';
+		echo '<div id="wootower-dashboard-root"></div>';
 	}
 }

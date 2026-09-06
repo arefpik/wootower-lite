@@ -8,7 +8,7 @@ export default function ProUpsellModal({ isOpen, onClose }) {
       <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
         <h2 className="text-lg font-semibold text-gray-900">This is a Pro feature</h2>
         <p className="mt-2 text-sm text-gray-500">
-          Upgrade to WooPilot Pro to unlock this feature, along with full product,
+          Upgrade to WooTower Pro to unlock this feature, along with full product,
           order and customer management.
         </p>
         <div className="mt-6 flex justify-end gap-3">
@@ -20,7 +20,7 @@ export default function ProUpsellModal({ isOpen, onClose }) {
             Close
           </button>
           <a
-            href="https://woopilot.example/pricing"
+            href="https://wootower.example/pricing"
             target="_blank"
             rel="noreferrer"
             className="rounded-md bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600"

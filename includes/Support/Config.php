@@ -1,11 +1,11 @@
 <?php
 /**
- * Single point of access for WooPilot's wp_options-backed settings.
+ * Single point of access for WooTower's wp_options-backed settings.
  *
- * @package WooPilot\Support
+ * @package WooTower\Support
  */
 
-namespace WooPilot\Support;
+namespace WooTower\Support;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,11 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Config {
 
-	private const OPTION_BOT_TOKEN              = 'woopilot_telegram_bot_token';
-	private const OPTION_CHAT_ID                = 'woopilot_telegram_chat_id';
-	private const OPTION_WEBHOOK_SECRET         = 'woopilot_telegram_webhook_secret';
-	private const OPTION_NOTIFICATION_TEMPLATE  = 'woopilot_notification_template';
-	private const OPTION_STATUS_BUTTONS         = 'woopilot_status_buttons';
+	private const OPTION_BOT_TOKEN              = 'wootower_telegram_bot_token';
+	private const OPTION_CHAT_ID                = 'wootower_telegram_chat_id';
+	private const OPTION_WEBHOOK_SECRET         = 'wootower_telegram_webhook_secret';
+	private const OPTION_NOTIFICATION_TEMPLATE  = 'wootower_notification_template';
+	private const OPTION_STATUS_BUTTONS         = 'wootower_status_buttons';
 
 	private const WEBHOOK_SECRET_LENGTH = 32;
 

@@ -2,12 +2,12 @@
 /**
  * Business logic for reading order summaries and changing order status.
  *
- * @package WooPilot\Core\Orders
+ * @package WooTower\Core\Orders
  */
 
-namespace WooPilot\Core\Orders;
+namespace WooTower\Core\Orders;
 
-use WooPilot\Support\Logger;
+use WooTower\Support\Logger;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -64,12 +64,12 @@ class OrderService {
 		$this->repository->updateStatus( $order, $newStatus );
 
 		/**
-		 * Fires after an order's status has been changed through WooPilot.
+		 * Fires after an order's status has been changed through WooTower.
 		 *
 		 * @param int    $orderId   The order ID.
 		 * @param string $newStatus The new order status, without the "wc-" prefix.
 		 */
-		do_action( 'woopilot_order_status_changed', $orderId, $newStatus );
+		do_action( 'wootower_order_status_changed', $orderId, $newStatus );
 
 		return true;
 	}

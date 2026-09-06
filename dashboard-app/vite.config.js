@@ -20,13 +20,13 @@ export default defineConfig({
     emptyOutDir: true,
     lib: {
       entry: 'src/main.jsx',
-      name: 'WooPilotDashboard',
+      name: 'WooTowerDashboard',
       formats: ['iife'],
-      fileName: () => 'woopilot-dashboard.js',
+      fileName: () => 'wootower-dashboard.js',
     },
     rollupOptions: {
       output: {
-        assetFileNames: 'woopilot-dashboard.[ext]',
+        assetFileNames: 'wootower-dashboard.[ext]',
       },
     },
   },

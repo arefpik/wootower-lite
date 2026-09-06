@@ -2,12 +2,12 @@
 /**
  * Coordinates turning a "new order" WooCommerce event into a dispatched notification.
  *
- * @package WooPilot\Core\Notifications
+ * @package WooTower\Core\Notifications
  */
 
-namespace WooPilot\Core\Notifications;
+namespace WooTower\Core\Notifications;
 
-use WooPilot\Core\Orders\OrderService;
+use WooTower\Core\Orders\OrderService;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

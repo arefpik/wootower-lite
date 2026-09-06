@@ -39,11 +39,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f9f9f7] p-8">
       <header className="mb-8">
-        <h1 className="text-2xl font-semibold text-[#0b0b0b]">WooPilot Dashboard</h1>
+        <h1 className="text-2xl font-semibold text-[#0b0b0b]">WooTower Dashboard</h1>
         <p className="mt-1 text-sm text-[#52514e]">
-          {connection === 'loading' && 'Connecting to WooPilot...'}
+          {connection === 'loading' && 'Connecting to WooTower...'}
           {connection === 'connected' && 'Connected to the backend.'}
-          {connection === 'error' && 'Could not reach the WooPilot backend.'}
+          {connection === 'error' && 'Could not reach the WooTower backend.'}
         </p>
       </header>
 

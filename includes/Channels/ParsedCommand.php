@@ -2,10 +2,10 @@
 /**
  * Normalized representation of an incoming channel command, independent of the source channel.
  *
- * @package WooPilot\Channels
+ * @package WooTower\Channels
  */
 
-namespace WooPilot\Channels;
+namespace WooTower\Channels;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

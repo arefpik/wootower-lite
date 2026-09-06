@@ -30,18 +30,18 @@ jobs:
 
       - name: Assemble plugin folder
         run: |
-          mkdir -p build/woopilot
-          cp woopilot.php readme.txt build/woopilot/
-          cp -r includes build/woopilot/includes
-          mkdir -p build/woopilot/dashboard-app
-          cp -r dashboard-app/build build/woopilot/dashboard-app/build
+          mkdir -p build/wootower
+          cp wootower.php readme.txt build/wootower/
+          cp -r includes build/wootower/includes
+          mkdir -p build/wootower/dashboard-app
+          cp -r dashboard-app/build build/wootower/dashboard-app/build
 
       - name: Create ZIP
         working-directory: build
-        run: zip -r ../woopilot.zip woopilot
+        run: zip -r ../wootower.zip wootower
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: woopilot.zip
+          files: wootower.zip
           generate_release_notes: true

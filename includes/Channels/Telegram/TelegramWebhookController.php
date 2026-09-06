@@ -2,17 +2,17 @@
 /**
  * REST endpoint that receives Telegram's webhook updates.
  *
- * @package WooPilot\Channels\Telegram
+ * @package WooTower\Channels\Telegram
  */
 
-namespace WooPilot\Channels\Telegram;
+namespace WooTower\Channels\Telegram;
 
-use WooPilot\Channels\ParsedCommand;
-use WooPilot\Core\Notifications\OrderStatusKeyboard;
-use WooPilot\Core\Orders\OrderRepository;
-use WooPilot\Core\Orders\OrderService;
-use WooPilot\Support\Config;
-use WooPilot\Support\Logger;
+use WooTower\Channels\ParsedCommand;
+use WooTower\Core\Notifications\OrderStatusKeyboard;
+use WooTower\Core\Orders\OrderRepository;
+use WooTower\Core\Orders\OrderService;
+use WooTower\Support\Config;
+use WooTower\Support\Logger;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class TelegramWebhookController {
 
-	private const ROUTE_NAMESPACE      = 'woopilot/v1';
+	private const ROUTE_NAMESPACE      = 'wootower/v1';
 	private const ROUTE_PATH           = '/telegram-webhook';
 	private const SECRET_HEADER        = 'x-telegram-bot-api-secret-token';
 	private const ORDER_STATUS_COMMAND = 'order_status';
@@ -104,7 +104,7 @@ class TelegramWebhookController {
 		$changed      = $orderService->changeStatus( (int) $orderId, $status );
 
 		if ( ! $changed ) {
-			$channel->sendMessage( $command->chatId, __( 'Could not update the order status.', 'woopilot' ) );
+			$channel->sendMessage( $command->chatId, __( 'Could not update the order status.', 'wootower' ) );
 			return;
 		}
 
@@ -128,7 +128,7 @@ class TelegramWebhookController {
 	private function sendProUpsell( string $chatId, TelegramChannel $channel ): void {
 		$channel->sendMessage(
 			$chatId,
-			__( 'This feature is part of WooPilot Pro. Upgrade to unlock it.', 'woopilot' )
+			__( 'This feature is part of WooTower Pro. Upgrade to unlock it.', 'wootower' )
 		);
 	}
 

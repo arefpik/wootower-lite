@@ -2,10 +2,10 @@
 /**
  * Minimal REST route the dashboard-app uses to confirm it can reach the backend.
  *
- * @package WooPilot\Admin\Rest
+ * @package WooTower\Admin\Rest
  */
 
-namespace WooPilot\Admin\Rest;
+namespace WooTower\Admin\Rest;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class PingController {
 
-	private const ROUTE_NAMESPACE = 'woopilot/v1';
+	private const ROUTE_NAMESPACE = 'wootower/v1';
 	private const ROUTE_PATH      = '/ping';
 	private const CAPABILITY      = 'manage_woocommerce';
 
@@ -37,7 +37,7 @@ class PingController {
 		return new \WP_REST_Response(
 			[
 				'ok'      => true,
-				'version' => WOOPILOT_VERSION,
+				'version' => WOOTOWER_VERSION,
 			],
 			200
 		);

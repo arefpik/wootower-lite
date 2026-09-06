@@ -2,10 +2,10 @@
 /**
  * Minimal logging helper so external/IO failures are never silently swallowed.
  *
- * @package WooPilot\Support
+ * @package WooTower\Support
  */
 
-namespace WooPilot\Support;
+namespace WooTower\Support;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,7 +26,7 @@ class Logger {
 	}
 
 	private static function write( string $level, string $message, array $context ): void {
-		$line = sprintf( '[WooPilot][%s] %s', $level, $message );
+		$line = sprintf( '[WooTower][%s] %s', $level, $message );
 
 		if ( ! empty( $context ) ) {
 			$line .= ' ' . wp_json_encode( $context );

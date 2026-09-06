@@ -1,7 +1,7 @@
-const REST_NAMESPACE = 'woopilot/v1';
+const REST_NAMESPACE = 'wootower/v1';
 
 function getRuntimeConfig() {
-  return window.woopilotDashboardConfig || {};
+  return window.wootowerDashboardConfig || {};
 }
 
 /**
@@ -19,7 +19,7 @@ export async function apiGet(path) {
   });
 
   if (!response.ok) {
-    throw new Error(`WooPilot API request to "${path}" failed with status ${response.status}.`);
+    throw new Error(`WooTower API request to "${path}" failed with status ${response.status}.`);
   }
 
   return response.json();

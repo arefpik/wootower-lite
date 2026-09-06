@@ -2,14 +2,14 @@
 /**
  * Telegram implementation of the messaging channel contract.
  *
- * @package WooPilot\Channels\Telegram
+ * @package WooTower\Channels\Telegram
  */
 
-namespace WooPilot\Channels\Telegram;
+namespace WooTower\Channels\Telegram;
 
-use WooPilot\Channels\MessagingChannelInterface;
-use WooPilot\Channels\ParsedCommand;
-use WooPilot\Support\Logger;
+use WooTower\Channels\MessagingChannelInterface;
+use WooTower\Channels\ParsedCommand;
+use WooTower\Support\Logger;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
