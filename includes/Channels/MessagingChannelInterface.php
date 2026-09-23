@@ -56,4 +56,13 @@ interface MessagingChannelInterface {
 	 * @param array $commands Command definitions to register.
 	 */
 	public function registerCommands( array $commands ): void;
+
+	/**
+	 * Tells the provider an inline-button tap was received, if the payload
+	 * is one — stops the button's loading spinner, and some providers (Bale)
+	 * require it within seconds. A no-op for any other payload.
+	 *
+	 * @param array $payload Raw payload received from the channel's webhook.
+	 */
+	public function acknowledgeCallback( array $payload ): void;
 }

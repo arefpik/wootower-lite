@@ -20,6 +20,9 @@ class Config {
 	private const OPTION_STATUS_BUTTONS         = 'wootower_status_buttons';
 	private const OPTION_TELEGRAM_PROXY_ENABLED = 'wootower_telegram_proxy_enabled';
 	private const OPTION_TELEGRAM_PROXY_URL     = 'wootower_telegram_proxy_url';
+	private const OPTION_BALE_BOT_TOKEN         = 'wootower_bale_bot_token';
+	private const OPTION_BALE_CHAT_ID           = 'wootower_bale_chat_id';
+	private const OPTION_BALE_WEBHOOK_SECRET    = 'wootower_bale_webhook_secret';
 
 	private const WEBHOOK_SECRET_LENGTH = 32;
 
@@ -46,11 +49,42 @@ class Config {
 	 * and persisting one on first use so the value stays stable across calls.
 	 */
 	public static function getTelegramWebhookSecret(): string {
-		$secret = get_option( self::OPTION_WEBHOOK_SECRET, '' );
+		return self::getOrCreateSecret( self::OPTION_WEBHOOK_SECRET );
+	}
+
+	public static function getBaleBotToken(): string {
+		return (string) get_option( self::OPTION_BALE_BOT_TOKEN, '' );
+	}
+
+	public static function setBaleBotToken( string $token ): void {
+		update_option( self::OPTION_BALE_BOT_TOKEN, $token );
+	}
+
+	/** Bale chat that receives new-order notifications and may change their status. */
+	public static function getBaleChatId(): string {
+		return (string) get_option( self::OPTION_BALE_CHAT_ID, '' );
+	}
+
+	public static function setBaleChatId( string $chatId ): void {
+		update_option( self::OPTION_BALE_CHAT_ID, $chatId );
+	}
+
+	/**
+	 * Secret embedded in Bale's webhook URL. Bale's docs don't define
+	 * Telegram's secret-token header, so the URL itself carries the proof
+	 * that a request came from the webhook we registered.
+	 */
+	public static function getBaleWebhookSecret(): string {
+		return self::getOrCreateSecret( self::OPTION_BALE_WEBHOOK_SECRET );
+	}
+
+	/** Generates and persists the secret on first use, so it stays stable across calls. */
+	private static function getOrCreateSecret( string $option ): string {
+		$secret = get_option( $option, '' );
 
 		if ( empty( $secret ) ) {
 			$secret = wp_generate_password( self::WEBHOOK_SECRET_LENGTH, false );
-			update_option( self::OPTION_WEBHOOK_SECRET, $secret );
+			update_option( $option, $secret );
 		}
 
 		return (string) $secret;

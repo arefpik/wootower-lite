@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       WooTower
  * Plugin URI:        https://wootower.pro
- * Description:       Manage your WooCommerce store from Telegram and a built-in wp-admin dashboard.
- * Version:           0.2.0
+ * Description:       Manage your WooCommerce store from Telegram or Bale and a built-in wp-admin dashboard.
+ * Version:           0.3.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            WooTower
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'WOOTOWER_VERSION', '0.2.0' );
+define( 'WOOTOWER_VERSION', '0.3.0' );
 define( 'WOOTOWER_PLUGIN_FILE', __FILE__ );
 define( 'WOOTOWER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WOOTOWER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -49,6 +49,8 @@ spl_autoload_register(
  * Boots the plugin once WooCommerce is confirmed active.
  */
 function wootower_init() {
+	load_plugin_textdomain( 'wootower', false, dirname( plugin_basename( WOOTOWER_PLUGIN_FILE ) ) . '/languages' );
+
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', 'wootower_missing_woocommerce_notice' );
 		return;
@@ -60,6 +62,7 @@ function wootower_init() {
 		'rest_api_init',
 		function () {
 			( new \WooTower\Channels\Telegram\TelegramWebhookController() )->registerRoute();
+			( new \WooTower\Channels\Bale\BaleWebhookController() )->registerRoute();
 			( new \WooTower\Admin\Rest\PingController() )->registerRoute();
 			( new \WooTower\Admin\Rest\StatsController( new \WooTower\Core\Stats\StatsService() ) )->registerRoute();
 		}
@@ -106,40 +109,45 @@ add_action( 'plugins_loaded', 'wootower_init' );
 function wootower_handle_new_order( $order_id_or_order ) {
 	$order_id = $order_id_or_order instanceof \WC_Order ? $order_id_or_order->get_id() : (int) $order_id_or_order;
 
-	$dispatcher = wootower_build_notification_dispatcher();
+	foreach ( wootower_build_notification_dispatchers() as $dispatcher ) {
+		$listener = new \WooTower\Core\Notifications\NewOrderListener(
+			new \WooTower\Core\Orders\OrderService( new \WooTower\Core\Orders\OrderRepository() ),
+			$dispatcher
+		);
 
-	if ( ! $dispatcher ) {
-		return;
+		$listener->handle( $order_id );
 	}
-
-	$listener = new \WooTower\Core\Notifications\NewOrderListener(
-		new \WooTower\Core\Orders\OrderService( new \WooTower\Core\Orders\OrderRepository() ),
-		$dispatcher
-	);
-
-	$listener->handle( $order_id );
 }
 
 /**
- * Builds a NotificationDispatcher wired to the configured Telegram bot, or
- * null when the bot token / admin chat id haven't been set up yet.
+ * One NotificationDispatcher per messenger that has both a bot token and a
+ * notification chat set up — Telegram and Bale run side by side, and a new
+ * order is announced on each of them.
+ *
+ * @return \WooTower\Core\Notifications\NotificationDispatcher[]
  */
-function wootower_build_notification_dispatcher(): ?\WooTower\Core\Notifications\NotificationDispatcher {
-	$bot_token = \WooTower\Support\Config::getTelegramBotToken();
-	$chat_id   = \WooTower\Support\Config::getTelegramChatId();
+function wootower_build_notification_dispatchers(): array {
+	$targets = [
+		[ \WooTower\Channels\Telegram\TelegramChannel::fromConfig(), \WooTower\Support\Config::getTelegramChatId() ],
+		[ \WooTower\Channels\Bale\BaleChannel::fromConfig(), \WooTower\Support\Config::getBaleChatId() ],
+	];
 
-	if ( empty( $bot_token ) || empty( $chat_id ) ) {
-		return null;
+	$dispatchers = [];
+
+	foreach ( $targets as [ $channel, $chat_id ] ) {
+		if ( null === $channel || '' === $chat_id ) {
+			continue;
+		}
+
+		$dispatchers[] = new \WooTower\Core\Notifications\NotificationDispatcher(
+			$channel,
+			$chat_id,
+			\WooTower\Support\Config::getNotificationTemplate(),
+			\WooTower\Support\Config::getStatusButtons()
+		);
 	}
 
-	$channel = new \WooTower\Channels\Telegram\TelegramChannel( $bot_token, \WooTower\Support\Config::getTelegramWebhookSecret() );
-
-	return new \WooTower\Core\Notifications\NotificationDispatcher(
-		$channel,
-		$chat_id,
-		\WooTower\Support\Config::getNotificationTemplate(),
-		\WooTower\Support\Config::getStatusButtons()
-	);
+	return $dispatchers;
 }
 
 /**

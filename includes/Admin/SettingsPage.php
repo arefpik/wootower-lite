@@ -1,7 +1,7 @@
 <?php
 /**
- * wp-admin settings screen for connecting the Telegram bot and customizing
- * the new-order notification message and status-change buttons.
+ * wp-admin settings screen for connecting the Telegram and Bale bots and
+ * customizing the new-order notification message and status-change buttons.
  *
  * @package WooTower\Admin
  */
@@ -9,6 +9,9 @@
 namespace WooTower\Admin;
 
 use WooTower\Admin\Dashboard\DashboardPage;
+use WooTower\Channels\Bale\BaleChannel;
+use WooTower\Channels\Bale\BaleWebhookController;
+use WooTower\Channels\MessagingChannelInterface;
 use WooTower\Channels\Telegram\TelegramChannel;
 use WooTower\Channels\Telegram\TelegramWebhookController;
 use WooTower\Support\Config;
@@ -67,10 +70,12 @@ class SettingsPage {
 
 		check_admin_referer( self::NONCE_ACTION, self::NONCE_FIELD );
 
-		$botToken = isset( $_POST['wootower_bot_token'] ) ? sanitize_text_field( wp_unslash( $_POST['wootower_bot_token'] ) ) : '';
-		$chatId   = isset( $_POST['wootower_chat_id'] ) ? sanitize_text_field( wp_unslash( $_POST['wootower_chat_id'] ) ) : '';
+		$botToken     = $this->postedText( 'wootower_bot_token' );
+		$chatId       = $this->postedText( 'wootower_chat_id' );
+		$baleBotToken = $this->postedText( 'wootower_bale_bot_token' );
+		$baleChatId   = $this->postedText( 'wootower_bale_chat_id' );
 
-		if ( ! $this->isValidChatId( $chatId ) ) {
+		if ( ! $this->isValidChatId( $chatId ) || ! $this->isValidChatId( $baleChatId ) ) {
 			add_action( 'admin_notices', [ $this, 'renderInvalidChatIdNotice' ] );
 			return;
 		}
@@ -85,6 +90,8 @@ class SettingsPage {
 
 		Config::setTelegramBotToken( $botToken );
 		Config::setTelegramChatId( $chatId );
+		Config::setBaleBotToken( $baleBotToken );
+		Config::setBaleChatId( $baleChatId );
 		Config::setStatusButtons( $this->sanitizeStatusButtons() );
 		Config::setTelegramProxy( $proxyEnabled, $proxyUrl );
 
@@ -94,16 +101,30 @@ class SettingsPage {
 			Config::setNotificationTemplate( $template );
 		}
 
-		if ( $this->syncWebhook( $botToken ) ) {
-			add_action( 'admin_notices', [ $this, 'renderSavedNotice' ] );
-		} else {
+		$telegramSynced = $this->syncWebhook( TelegramChannel::fromConfig(), TelegramWebhookController::getWebhookUrl() );
+		$baleSynced     = $this->syncWebhook( BaleChannel::fromConfig(), BaleWebhookController::getWebhookUrl() );
+
+		if ( ! $telegramSynced ) {
 			add_action( 'admin_notices', [ $this, 'renderWebhookSyncFailedNotice' ] );
+		}
+
+		if ( ! $baleSynced ) {
+			add_action( 'admin_notices', [ $this, 'renderBaleWebhookSyncFailedNotice' ] );
+		}
+
+		if ( $telegramSynced && $baleSynced ) {
+			add_action( 'admin_notices', [ $this, 'renderSavedNotice' ] );
 		}
 	}
 
+	private function postedText( string $field ): string {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- verified by check_admin_referer() in handleSave() before any field is read.
+		return isset( $_POST[ $field ] ) ? trim( sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) ) : '';
+	}
+
 	/**
-	 * A Telegram chat id is either empty (not yet linked) or an integer —
-	 * negative for groups/supergroups/channels — never arbitrary text.
+	 * A chat id is either empty (not yet linked) or an integer — negative
+	 * for groups/supergroups/channels — never arbitrary text.
 	 */
 	private function isValidChatId( string $chatId ): bool {
 		return '' === $chatId || 1 === preg_match( '/^-?\d+$/', $chatId );
@@ -138,20 +159,21 @@ class SettingsPage {
 	}
 
 	/**
-	 * Registers the webhook and bot commands with Telegram right after the
-	 * token is saved, per the "no manual webhook setup" UX rule. Returns
+	 * Registers the webhook and bot commands with the messenger right after
+	 * the token is saved, per the "no manual webhook setup" UX rule. Returns
 	 * false only when a sync was actually attempted and failed, so the admin
 	 * is told, instead of seeing a false "saved" success message.
+	 *
+	 * @param MessagingChannelInterface|null $channel    The configured bot, or null when no token is saved.
+	 * @param string                         $webhookUrl This site's webhook address for that messenger.
 	 */
-	private function syncWebhook( string $botToken ): bool {
-		if ( empty( $botToken ) ) {
+	private function syncWebhook( ?MessagingChannelInterface $channel, string $webhookUrl ): bool {
+		if ( null === $channel ) {
 			return true;
 		}
 
-		$channel = new TelegramChannel( $botToken, Config::getTelegramWebhookSecret() );
-
-		if ( ! $channel->setupWebhook( TelegramWebhookController::getWebhookUrl() ) ) {
-			Logger::error( 'Failed to configure the Telegram webhook after saving settings.' );
+		if ( ! $channel->setupWebhook( $webhookUrl ) ) {
+			Logger::error( 'Failed to configure a bot webhook after saving settings.', [ 'channel' => get_class( $channel ) ] );
 			return false;
 		}
 
@@ -189,9 +211,15 @@ class SettingsPage {
 			'</p></div>';
 	}
 
+	public function renderBaleWebhookSyncFailedNotice(): void {
+		echo '<div class="notice notice-warning"><p>' .
+			esc_html__( 'Settings were saved, but WooTower could not reach Bale to configure the webhook. Double-check the Bale bot token and your server\'s outbound internet access, then save again.', 'wootower' ) .
+			'</p></div>';
+	}
+
 	public function renderInvalidChatIdNotice(): void {
 		echo '<div class="notice notice-error"><p>' .
-			esc_html__( 'Chat ID must be a numeric Telegram chat identifier, or left empty.', 'wootower' ) .
+			esc_html__( 'Each Chat ID must be a numeric chat identifier, or left empty.', 'wootower' ) .
 			'</p></div>';
 	}
 
@@ -207,16 +235,27 @@ class SettingsPage {
 			<?php $this->renderGettingStartedNotice(); ?>
 			<form method="post">
 				<?php wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD ); ?>
+				<h2><?php esc_html_e( 'Telegram', 'wootower' ); ?></h2>
 				<table class="form-table">
 					<?php $this->renderConnectionFields(); ?>
 					<?php $this->renderProxyField(); ?>
-					<?php ConnectionTestPanel::renderRow(); ?>
+					<?php ConnectionTestPanel::renderRow( 'telegram' ); ?>
+				</table>
+				<h2><?php esc_html_e( 'Bale', 'wootower' ); ?></h2>
+				<p><?php esc_html_e( 'Optional, and works alongside Telegram: connect a Bale bot too and new-order notifications, with their status buttons, arrive there as well. Bale is reachable from Iranian hosts without any proxy.', 'wootower' ); ?></p>
+				<table class="form-table">
+					<?php $this->renderBaleConnectionFields(); ?>
+					<?php ConnectionTestPanel::renderRow( 'bale' ); ?>
+				</table>
+				<h2><?php esc_html_e( 'Notifications', 'wootower' ); ?></h2>
+				<table class="form-table">
 					<?php $this->renderTemplateField(); ?>
 					<?php $this->renderStatusButtonsField(); ?>
 				</table>
 				<?php submit_button( __( 'Save Settings', 'wootower' ) ); ?>
 			</form>
 		</div>
+		<?php ConnectionTestPanel::renderScript(); ?>
 		<?php $this->renderRepeaterScript(); ?>
 		<?php
 	}
@@ -227,7 +266,7 @@ class SettingsPage {
 	 * Disappears automatically once a token is on file.
 	 */
 	private function renderGettingStartedNotice(): void {
-		if ( '' !== Config::getTelegramBotToken() ) {
+		if ( '' !== Config::getTelegramBotToken() || '' !== Config::getBaleBotToken() ) {
 			return;
 		}
 		?>
@@ -254,7 +293,54 @@ class SettingsPage {
 				</li>
 				<li><?php esc_html_e( 'Paste both values below and click Save Settings — WooTower configures the Telegram webhook automatically, no manual setup needed.', 'wootower' ); ?></li>
 			</ol>
+			<p><?php esc_html_e( 'Store hosted in Iran? You can use Bale instead of (or alongside) Telegram — no proxy needed. See the Bale section below.', 'wootower' ); ?></p>
 		</div>
+		<?php
+	}
+
+	/**
+	 * Bale has no @userinfobot equivalent, so the Chat ID comes from the bot
+	 * itself: once the token is saved, /start replies with the chat's ID
+	 * (see BotUpdateHandler::sendChatId()).
+	 */
+	private function renderBaleConnectionFields(): void {
+		$botToken = Config::getBaleBotToken();
+		$chatId   = Config::getBaleChatId();
+		?>
+		<tr>
+			<th scope="row">
+				<label for="wootower_bale_bot_token"><?php esc_html_e( 'Bale Bot Token', 'wootower' ); ?></label>
+			</th>
+			<td>
+				<input
+					type="text"
+					id="wootower_bale_bot_token"
+					name="wootower_bale_bot_token"
+					value="<?php echo esc_attr( $botToken ); ?>"
+					class="regular-text"
+				/>
+				<p class="description">
+					<?php esc_html_e( 'In the Bale app, open BotFather, create a new bot, and paste the token it gives you here.', 'wootower' ); ?>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">
+				<label for="wootower_bale_chat_id"><?php esc_html_e( 'Chat ID', 'wootower' ); ?></label>
+			</th>
+			<td>
+				<input
+					type="text"
+					id="wootower_bale_chat_id"
+					name="wootower_bale_chat_id"
+					value="<?php echo esc_attr( $chatId ); ?>"
+					class="regular-text"
+				/>
+				<p class="description">
+					<?php esc_html_e( 'Where new-order notifications go — a personal chat or a group. Save the token first, then send /start to your bot in Bale: it replies with your Chat ID. For a group, add the bot to the group and send /start there.', 'wootower' ); ?>
+				</p>
+			</td>
+		</tr>
 		<?php
 	}
 
