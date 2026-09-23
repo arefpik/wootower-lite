@@ -21,6 +21,8 @@ On top of that, a dashboard right inside wp-admin shows you how the bot's been d
 | ✅ **One-tap status changes** | Inline buttons under the notification update the order without opening the browser |
 | 👥 **Works in groups too** | Point it at a Telegram group/supergroup chat ID and your whole team sees every order |
 | 🧩 **Custom fields, automatically** | Any per-product custom field captured at checkout (account IDs, gift messages, etc.) shows up in the message with zero extra setup |
+| 🌐 **Works on hosts where Telegram is blocked** | A Telegram-only proxy setting (http, https, socks5, socks5h) — built for hosts inside Iran; nothing else WordPress does goes through it |
+| 🩺 **One-click connection test** | Checks reachability (direct or via proxy), the bot token, webhook delivery, and a test message to your chat — with a plain-language fix for each failure |
 | 📊 **Live dashboard stats** | Notifications sent, bot status-changes, and pending orders — right in wp-admin |
 | 🔒 **Pro-ready** | Product/order/customer management, real sales analytics, and multi-admin access are visible but clearly marked — [WooTower Pro](#-wootower-pro) unlocks them |
 
@@ -54,6 +56,12 @@ The dashboard's built assets are committed to the repo, so no build step is requ
 That's it — WooTower registers the Telegram webhook and bot commands automatically. No manual webhook configuration, no server-side setup.
 
 > ⚠️ Your site needs a publicly reachable HTTPS URL for Telegram to deliver updates to it. This is true of virtually any real hosting, but won't work against `localhost`.
+
+### Hosted in Iran (or anywhere Telegram is blocked)?
+
+Turn on **Telegram Proxy** on the settings page and enter a proxy address — `http://`, `https://`, `socks5://` or `socks5h://` (with `user:pass@` if needed). It's used for calls to `api.telegram.org` only; cron, plugin updates and WooCommerce itself never go through it. Prefer `socks5h://` if your host's DNS is filtered. If you run a V2Ray/Xray client on your own VPS, point this at its local SOCKS port (e.g. `socks5h://127.0.0.1:10808`).
+
+Then click **Test Connection** — it tests the values in the form before you save, and tells you exactly which part fails (network, proxy, token, webhook delivery, or the chat ID).
 
 ### Customizing the notification
 
