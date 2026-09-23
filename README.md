@@ -1,6 +1,6 @@
 # 🤖 WooTower
 
-**Run your WooCommerce store from Telegram — new order alerts, one-tap status changes, and a live stats dashboard, without a subscription.**
+**Run your WooCommerce store from Telegram or Bale — new order alerts, one-tap status changes, and a live stats dashboard, without a subscription.**
 
 [![License: GPLv2](https://img.shields.io/badge/license-GPLv2%2B-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![WordPress](https://img.shields.io/badge/WordPress-6.0%2B-21759b.svg)](https://wordpress.org)
@@ -17,7 +17,8 @@ On top of that, a dashboard right inside wp-admin shows you how the bot's been d
 
 | | |
 |---|---|
-| 📦 **New order alerts** | Sent to Telegram the instant an order is placed — fully customizable message template |
+| 📦 **New order alerts** | Sent to Telegram and/or Bale the instant an order is placed — fully customizable message template |
+| 🇮🇷 **Bale (بله) support** | Connect a Bale bot alongside (or instead of) Telegram — no proxy needed on Iranian hosts |
 | ✅ **One-tap status changes** | Inline buttons under the notification update the order without opening the browser |
 | 👥 **Works in groups too** | Point it at a Telegram group/supergroup chat ID and your whole team sees every order |
 | 🧩 **Custom fields, automatically** | Any per-product custom field captured at checkout (account IDs, gift messages, etc.) shows up in the message with zero extra setup |
@@ -57,7 +58,17 @@ That's it — WooTower registers the Telegram webhook and bot commands automatic
 
 > ⚠️ Your site needs a publicly reachable HTTPS URL for Telegram to deliver updates to it. This is true of virtually any real hosting, but won't work against `localhost`.
 
+### Bale (optional, works alongside Telegram)
+
+1. In the Bale app, open **BotFather**, create a bot, and copy its token.
+2. Paste it into **Bale Bot Token** under **WooTower → Settings → Bale** and save.
+3. Send `/start` to your bot in Bale — it replies with your Chat ID. Paste it into the Bale **Chat ID** field and save again.
+
+New orders are then announced on every connected messenger. Only the configured chat (on each messenger) can change an order's status.
+
 ### Hosted in Iran (or anywhere Telegram is blocked)?
+
+The simplest route is Bale (above) — it needs no proxy. To keep using Telegram instead:
 
 Turn on **Telegram Proxy** on the settings page and enter a proxy address — `http://`, `https://`, `socks5://` or `socks5h://` (with `user:pass@` if needed). It's used for calls to `api.telegram.org` only; cron, plugin updates and WooCommerce itself never go through it. Prefer `socks5h://` if your host's DNS is filtered. If you run a V2Ray/Xray client on your own VPS, point this at its local SOCKS port (e.g. `socks5h://127.0.0.1:10808`).
 
@@ -87,18 +98,18 @@ The **New Order Message** field on the settings page accepts plain text plus pla
 WooCommerce order placed
         │
         ▼
-NotificationDispatcher ──renders template──▶ MessagingChannelInterface ──▶ TelegramChannel ──▶ Telegram API
+NotificationDispatcher ──renders template──▶ MessagingChannelInterface ──▶ TelegramChannel / BaleChannel ──▶ Bot API
         │
         ▼
 StatsService records the event ──▶ wp-admin dashboard (React)
 
-Telegram button tap
+Telegram/Bale button tap
         │
         ▼
-Webhook (secret-token verified) ──▶ updates order status ──▶ edits the message's keyboard in place
+Webhook (secret verified) ──▶ BotUpdateHandler (notification chat only) ──▶ updates order status ──▶ edits the message's keyboard in place
 ```
 
-Messaging is built behind a `MessagingChannelInterface` adapter — Telegram is the only implementation today, but the core order/notification logic doesn't know that.
+Messaging is built behind a `MessagingChannelInterface` adapter. Telegram and Bale both speak the Bot API dialect, so they share `BotApiChannel` and differ only in their endpoint; the core order/notification logic doesn't know which one it's talking to.
 
 ---
 
