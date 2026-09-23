@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooTower 0.3.1\n"
+"Project-Id-Version: WooTower 0.3.2\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -403,4 +403,8 @@ msgstr ""
 
 #: DashboardPage.php
 msgid "Upgrade to Pro"
+msgstr ""
+
+#: DashboardPage.php
+msgid "As a WooTower Lite user, you get an exclusive discount on Pro — it is applied automatically when you upgrade from this button."
 msgstr ""

@@ -4,7 +4,7 @@ Tags: woocommerce, telegram, bale, orders, notifications
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,10 @@ They're shown so you know what's available, but they're intentionally inactive i
 the Free version. Clicking one shows an upgrade prompt instead of running the feature.
 
 == Changelog ==
+
+= 0.3.2 =
+* New: "Upgrade to Pro" now goes through wootower.pro/go/lite, which applies the exclusive Pro
+  discount for WooTower Lite users automatically at checkout. The upgrade prompt says so.
 
 = 0.3.1 =
 * Fix: the dashboard's "Upgrade to Pro" button pointed to a placeholder address that doesn't

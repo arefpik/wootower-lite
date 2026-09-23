@@ -23,9 +23,11 @@ const FALLBACK = {
     'Upgrade to WooTower Pro to unlock this feature, along with full product, order and customer management.',
   close: 'Close',
   upgrade: 'Upgrade to Pro',
+  liteDiscount:
+    'As a WooTower Lite user, you get an exclusive discount on Pro — it is applied automatically when you upgrade from this button.',
 };
 
-const DEFAULT_UPGRADE_URL = 'https://wootower.pro/buy';
+const DEFAULT_UPGRADE_URL = 'https://wootower.pro/go/lite';
 
 function getConfig() {
   return window.wootowerDashboardConfig || {};

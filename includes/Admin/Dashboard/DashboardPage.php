@@ -17,7 +17,9 @@ class DashboardPage {
 
 	private const CAPABILITY    = 'manage_woocommerce';
 	private const SCRIPT_HANDLE = 'wootower-dashboard';
-	private const UPGRADE_URL   = 'https://wootower.pro/buy';
+	// Lands on wootower.pro, which marks the visitor as a Lite user and
+	// applies the Lite-only Pro discount automatically on the checkout page.
+	private const UPGRADE_URL   = 'https://wootower.pro/go/lite';
 
 	public function registerMenu(): void {
 		add_menu_page(
@@ -113,6 +115,7 @@ class DashboardPage {
 			'proFeatureBody'  => __( 'Upgrade to WooTower Pro to unlock this feature, along with full product, order and customer management.', 'wootower' ),
 			'close'           => __( 'Close', 'wootower' ),
 			'upgrade'         => __( 'Upgrade to Pro', 'wootower' ),
+			'liteDiscount'    => __( 'As a WooTower Lite user, you get an exclusive discount on Pro — it is applied automatically when you upgrade from this button.', 'wootower' ),
 		];
 	}
 

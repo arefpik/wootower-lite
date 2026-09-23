@@ -12,6 +12,9 @@ export default function ProUpsellModal({ isOpen, onClose }) {
         <p className="mt-2 text-sm text-gray-500">
           {t('proFeatureBody')}
         </p>
+        <p className="mt-3 rounded-md bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+          🎁 {t('liteDiscount')}
+        </p>
         <div className="mt-6 flex justify-end gap-3">
           <button
             type="button"
