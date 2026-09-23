@@ -3,7 +3,7 @@
  * Plugin Name:       WooTower
  * Plugin URI:        https://wootower.pro
  * Description:       Manage your WooCommerce store from Telegram or Bale and a built-in wp-admin dashboard.
- * Version:           0.3.0
+ * Version:           0.3.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            WooTower
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'WOOTOWER_VERSION', '0.3.0' );
+define( 'WOOTOWER_VERSION', '0.3.1' );
 define( 'WOOTOWER_PLUGIN_FILE', __FILE__ );
 define( 'WOOTOWER_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WOOTOWER_PLUGIN_URL', plugin_dir_url( __FILE__ ) );

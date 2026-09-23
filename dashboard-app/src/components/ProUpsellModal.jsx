@@ -1,3 +1,5 @@
+import { t, upgradeUrl } from '../utils/i18n.js';
+
 export default function ProUpsellModal({ isOpen, onClose }) {
   if (!isOpen) {
     return null;
@@ -6,10 +8,9 @@ export default function ProUpsellModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
-        <h2 className="text-lg font-semibold text-gray-900">This is a Pro feature</h2>
+        <h2 className="text-lg font-semibold text-gray-900">{t('proFeatureTitle')}</h2>
         <p className="mt-2 text-sm text-gray-500">
-          Upgrade to WooTower Pro to unlock this feature, along with full product,
-          order and customer management.
+          {t('proFeatureBody')}
         </p>
         <div className="mt-6 flex justify-end gap-3">
           <button
@@ -17,15 +18,15 @@ export default function ProUpsellModal({ isOpen, onClose }) {
             onClick={onClose}
             className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
           >
-            Close
+            {t('close')}
           </button>
           <a
-            href="https://wootower.example/pricing"
+            href={upgradeUrl()}
             target="_blank"
             rel="noreferrer"
             className="rounded-md bg-amber-500 px-3 py-2 text-sm font-medium text-white hover:bg-amber-600"
           >
-            Upgrade to Pro
+            {t('upgrade')}
           </a>
         </div>
       </div>

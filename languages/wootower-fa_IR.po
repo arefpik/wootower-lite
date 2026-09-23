@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooTower 0.3.0\n"
+"Project-Id-Version: WooTower 0.3.1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -326,3 +326,83 @@ msgstr "✅ تست اتصال ووتاور: فروشگاه شما می‌تون�
 #: wootower.php
 msgid "WooTower requires WooCommerce to be installed and active."
 msgstr "ووتاور نیاز داره که ووکامرس نصب و فعال باشه."
+
+#: DashboardPage.php
+msgid "WooTower Dashboard"
+msgstr "داشبورد ووتاور"
+
+#: DashboardPage.php
+msgid "Connecting to WooTower..."
+msgstr "در حال اتصال به ووتاور..."
+
+#: DashboardPage.php
+msgid "Connected to the backend."
+msgstr "به سرور افزونه وصل شد."
+
+#: DashboardPage.php
+msgid "Could not reach the WooTower backend."
+msgstr "اتصال به سرور ووتاور برقرار نشد."
+
+#: DashboardPage.php
+msgid "Overview"
+msgstr "نمای کلی"
+
+#: DashboardPage.php
+msgid "New order notifications sent"
+msgstr "اعلان‌های سفارش جدید ارسال‌شده"
+
+#: DashboardPage.php
+msgid "Status changes made via bot"
+msgstr "تغییر وضعیت‌ها از طریق ربات"
+
+#: DashboardPage.php
+msgid "Awaiting action"
+msgstr "در انتظار اقدام"
+
+#: DashboardPage.php
+msgid "Total revenue"
+msgstr "درآمد کل"
+
+#: DashboardPage.php
+msgid "Order completion rate"
+msgstr "نرخ تکمیل سفارش"
+
+#: DashboardPage.php
+msgid "Best-selling product"
+msgstr "پرفروش‌ترین محصول"
+
+#: DashboardPage.php
+msgid "More with Pro"
+msgstr "امکانات بیشتر با نسخه‌ی پرو"
+
+#: DashboardPage.php
+msgid "Products"
+msgstr "محصولات"
+
+#: DashboardPage.php
+msgid "Full Order Management"
+msgstr "مدیریت کامل سفارش‌ها"
+
+#: DashboardPage.php
+msgid "Customers"
+msgstr "مشتری‌ها"
+
+#: DashboardPage.php
+msgid "Analytics"
+msgstr "تحلیل و گزارش"
+
+#: DashboardPage.php
+msgid "This is a Pro feature"
+msgstr "این قابلیت مخصوص نسخه‌ی پروئه"
+
+#: DashboardPage.php
+msgid "Upgrade to WooTower Pro to unlock this feature, along with full product, order and customer management."
+msgstr "با ارتقا به ووتاور پرو، این قابلیت به‌همراه مدیریت کامل محصولات، سفارش‌ها و مشتری‌ها براتون فعال می‌شه."
+
+#: DashboardPage.php
+msgid "Close"
+msgstr "بستن"
+
+#: DashboardPage.php
+msgid "Upgrade to Pro"
+msgstr "ارتقا به پرو"

@@ -14,7 +14,7 @@ export default function ProLockedStatTile({ label }) {
       <button
         type="button"
         onClick={() => setModalOpen(true)}
-        className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-left transition hover:border-amber-300 hover:bg-amber-50"
+        className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-5 text-start transition hover:border-amber-300 hover:bg-amber-50"
       >
         <div className="flex items-start justify-between gap-2">
           <p className="text-sm text-[#52514e]">{label}</p>

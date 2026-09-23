@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WooTower 0.3.0\n"
+"Project-Id-Version: WooTower 0.3.1\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -323,4 +323,84 @@ msgstr ""
 
 #: wootower.php
 msgid "WooTower requires WooCommerce to be installed and active."
+msgstr ""
+
+#: DashboardPage.php
+msgid "WooTower Dashboard"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Connecting to WooTower..."
+msgstr ""
+
+#: DashboardPage.php
+msgid "Connected to the backend."
+msgstr ""
+
+#: DashboardPage.php
+msgid "Could not reach the WooTower backend."
+msgstr ""
+
+#: DashboardPage.php
+msgid "Overview"
+msgstr ""
+
+#: DashboardPage.php
+msgid "New order notifications sent"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Status changes made via bot"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Awaiting action"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Total revenue"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Order completion rate"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Best-selling product"
+msgstr ""
+
+#: DashboardPage.php
+msgid "More with Pro"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Products"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Full Order Management"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Customers"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Analytics"
+msgstr ""
+
+#: DashboardPage.php
+msgid "This is a Pro feature"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Upgrade to WooTower Pro to unlock this feature, along with full product, order and customer management."
+msgstr ""
+
+#: DashboardPage.php
+msgid "Close"
+msgstr ""
+
+#: DashboardPage.php
+msgid "Upgrade to Pro"
 msgstr ""

@@ -15,7 +15,7 @@ export default function ProLockedFeature({ label }) {
       <button
         type="button"
         onClick={() => setModalOpen(true)}
-        className="flex w-full items-center justify-between rounded-md px-3 py-2 text-left text-sm text-gray-400 hover:bg-gray-100"
+        className="flex w-full items-center justify-between rounded-md px-3 py-2 text-start text-sm text-gray-400 hover:bg-gray-100"
       >
         <span>{label}</span>
         <ProBadge />

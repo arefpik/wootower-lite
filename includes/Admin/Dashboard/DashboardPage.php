@@ -17,6 +17,7 @@ class DashboardPage {
 
 	private const CAPABILITY    = 'manage_woocommerce';
 	private const SCRIPT_HANDLE = 'wootower-dashboard';
+	private const UPGRADE_URL   = 'https://wootower.pro/buy';
 
 	public function registerMenu(): void {
 		add_menu_page(
@@ -73,10 +74,46 @@ class DashboardPage {
 			self::SCRIPT_HANDLE,
 			'wootowerDashboardConfig',
 			[
-				'restUrl' => esc_url_raw( rest_url() ),
-				'nonce'   => wp_create_nonce( 'wp_rest' ),
+				'restUrl'    => esc_url_raw( rest_url() ),
+				'nonce'      => wp_create_nonce( 'wp_rest' ),
+				'upgradeUrl' => self::UPGRADE_URL,
+				'isRtl'      => is_rtl(),
+				'i18n'       => $this->strings(),
 			]
 		);
+	}
+
+	/**
+	 * The React bundle has no gettext of its own, so every string it shows is
+	 * translated here and handed over through wootowerDashboardConfig — that
+	 * keeps the dashboard in the same .po file as the rest of the plugin.
+	 * Keys must match the ones used in dashboard-app/src/utils/i18n.js.
+	 *
+	 * @return array<string, string>
+	 */
+	private function strings(): array {
+		return [
+			'title'           => __( 'WooTower Dashboard', 'wootower' ),
+			'connecting'      => __( 'Connecting to WooTower...', 'wootower' ),
+			'connected'       => __( 'Connected to the backend.', 'wootower' ),
+			'connectionError' => __( 'Could not reach the WooTower backend.', 'wootower' ),
+			'overview'        => __( 'Overview', 'wootower' ),
+			'notifiedOrders'  => __( 'New order notifications sent', 'wootower' ),
+			'statusChanges'   => __( 'Status changes made via bot', 'wootower' ),
+			'awaitingAction'  => __( 'Awaiting action', 'wootower' ),
+			'totalRevenue'    => __( 'Total revenue', 'wootower' ),
+			'completionRate'  => __( 'Order completion rate', 'wootower' ),
+			'bestSeller'      => __( 'Best-selling product', 'wootower' ),
+			'moreWithPro'     => __( 'More with Pro', 'wootower' ),
+			'products'        => __( 'Products', 'wootower' ),
+			'orderManagement' => __( 'Full Order Management', 'wootower' ),
+			'customers'       => __( 'Customers', 'wootower' ),
+			'analytics'       => __( 'Analytics', 'wootower' ),
+			'proFeatureTitle' => __( 'This is a Pro feature', 'wootower' ),
+			'proFeatureBody'  => __( 'Upgrade to WooTower Pro to unlock this feature, along with full product, order and customer management.', 'wootower' ),
+			'close'           => __( 'Close', 'wootower' ),
+			'upgrade'         => __( 'Upgrade to Pro', 'wootower' ),
+		];
 	}
 
 	public function render(): void {

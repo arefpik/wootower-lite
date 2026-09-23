@@ -4,7 +4,7 @@ Tags: woocommerce, telegram, bale, orders, notifications
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.3.0
+Stable tag: 0.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,12 @@ They're shown so you know what's available, but they're intentionally inactive i
 the Free version. Clicking one shows an upgrade prompt instead of running the feature.
 
 == Changelog ==
+
+= 0.3.1 =
+* Fix: the dashboard's "Upgrade to Pro" button pointed to a placeholder address that doesn't
+  exist; it now opens https://wootower.pro/buy.
+* New: the WooTower dashboard page is translated too (Persian/English, following the site
+  language) and lays out right-to-left on RTL sites.
 
 = 0.3.0 =
 * New: Bale (بله) support, side by side with Telegram — new-order notifications and status
