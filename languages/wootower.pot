@@ -1,0 +1,326 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooTower 0.3.0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: BaleConnectionTester.php
+msgid "A test message was sent — check your Bale."
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "Bale answered with an unexpected response (HTTP %1$d): %2$s"
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "Bale refused to deliver the message (%s). Open your bot in Bale and press Start first; for a group, add the bot to the group and double-check the numeric Chat ID."
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "Connection to Bale"
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "Could not read the webhook status from Bale. Run the test again in a moment."
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "No webhook is registered yet, so button taps in Bale won't reach your store. Click \"Save Settings\" to register it automatically."
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "The webhook is registered to this site. (Bale doesn't report delivery errors — if buttons don't respond, make sure your site is reachable over HTTPS with a valid certificate.)"
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "Webhook (Bale → your site)"
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "Your server could not reach tapi.bale.ai. Bale is normally reachable from both Iranian and foreign servers without a proxy, so check your host's outbound internet access and firewall. Technical details: %s"
+msgstr ""
+
+#: BaleConnectionTester.php
+msgid "Your server reached Bale, but Bale rejected the bot token. Copy the token again from BotFather in Bale — it looks like 123456789:AbCdEf..."
+msgstr ""
+
+#: BotApiConnectionTester.php
+msgid "no description"
+msgstr ""
+
+#: BotUpdateHandler.php
+msgid "Could not update the order status."
+msgstr ""
+
+#: BotUpdateHandler.php
+msgid "This feature is part of WooTower Pro. Upgrade to unlock it."
+msgstr ""
+
+#: BotUpdateHandler.php
+msgid "👋 This is your WooTower bot.\nYour chat ID: %s\nPaste it into WooTower > Settings to receive new-order notifications here."
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Checks, using the values currently in this form (no need to save first): whether your server can reach Bale, whether the bot token is valid, whether the webhook points to your site, and whether the bot can message your Chat ID."
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Checks, using the values currently in this form (no need to save first): whether your server can reach Telegram directly or through the proxy, whether the bot token is valid, whether Telegram can deliver updates to your site, and whether the bot can message your Chat ID."
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Connection Test"
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Enter your bot token first, then run the test."
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Everything works. Your store and the messenger can talk to each other."
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Some checks failed — see the details below."
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Test Connection"
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "Testing the connection… this can take up to 30 seconds."
+msgstr ""
+
+#: ConnectionTestPanel.php
+msgid "The test request itself failed. Reload the page and try again."
+msgstr ""
+
+#: DashboardPage.php
+msgid "WooTower"
+msgstr ""
+
+#: SettingsPage.php
+msgid "+ Add Button"
+msgstr ""
+
+#: SettingsPage.php
+msgid "A personal chat, a group, or a supergroup — get its numeric ID from a bot such as @userinfobot (add the bot to a group first to get that group's ID)."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Bale"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Bale Bot Token"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Button text"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Chat ID"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Click a placeholder to insert it at the cursor:"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Each Chat ID must be a numeric chat identifier, or left empty."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Enter a valid proxy URL (e.g. http://host:port, https://host:port, socks5://host:port, or socks5h://host:port) before enabling the Telegram proxy."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Get WooTower connected to Telegram in three steps:"
+msgstr ""
+
+#: SettingsPage.php
+msgid "In the Bale app, open BotFather, create a new bot, and paste the token it gives you here."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Manage products (Pro)"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Message your new bot at least once, then get your numeric Chat ID from %s (add it to a group first if you want order notifications sent there instead)."
+msgstr ""
+
+#: SettingsPage.php
+msgid "New Order Message"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Notifications"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Only use this if your server cannot reach api.telegram.org directly (for example, hosts in Iran, where Telegram is blocked). Every other request WordPress makes — cron, plugin updates, WooCommerce itself — is unaffected; this proxy is used for Telegram API calls only."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Open a chat with %s, send /newbot, and follow its prompts to get a bot token."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Optional, and works alongside Telegram: connect a Bale bot too and new-order notifications, with their status buttons, arrive there as well. Bale is reachable from Iranian hosts without any proxy."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Paste both values below and click Save Settings — WooTower configures the Telegram webhook automatically, no manual setup needed."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Remove"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Route requests to the Telegram API through a proxy"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Save Settings"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Settings"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Settings were saved, but WooTower could not reach Bale to configure the webhook. Double-check the Bale bot token and your server's outbound internet access, then save again."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Settings were saved, but WooTower could not reach Telegram to configure the webhook. Double-check the bot token and your server's outbound internet access, then save again."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Start using WooTower"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Status Buttons"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Store hosted in Iran? You can use Bale instead of (or alongside) Telegram — no proxy needed. See the Bale section below."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Supported formats: http://, https://, socks5:// and socks5h:// (optionally with user:pass@). Prefer socks5h:// when your host's DNS is filtered, so the proxy resolves api.telegram.org instead of your server. Running a V2Ray/Xray client on your own VPS? Point this at its local SOCKS port, e.g. socks5h://127.0.0.1:10808."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Telegram"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Telegram Bot Token"
+msgstr ""
+
+#: SettingsPage.php
+msgid "Telegram Proxy"
+msgstr ""
+
+#: SettingsPage.php
+msgid "These appear as inline buttons under every new-order message, in this order. Remove all of them to send a notification with no buttons."
+msgstr ""
+
+#: SettingsPage.php
+msgid "Where new-order notifications go — a personal chat or a group. Save the token first, then send /start to your bot in Bale: it replies with your Chat ID. For a group, add the bot to the group and send /start there."
+msgstr ""
+
+#: SettingsPage.php
+msgid "WooTower Settings"
+msgstr ""
+
+#: SettingsPage.php
+msgid "WooTower settings saved."
+msgstr ""
+
+#: SettingsPage.php
+msgid "You are not allowed to change WooTower settings."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "A test message was sent — check your Telegram."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Connected to bot @%1$s in %2$d ms (%3$s). The token is valid."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Connection to Telegram"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Could not read the webhook status from Telegram. Run the test again in a moment."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "No webhook is registered yet, so button taps in Telegram won't reach your store. Click \"Save Settings\" to register it automatically."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Telegram answered with an unexpected response (HTTP %1$d): %2$s"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Telegram recently failed to deliver updates to your site: \"%s\". Your site must be reachable from the internet over HTTPS with a valid certificate. Some Iranian hosts block incoming traffic from abroad — if so, ask your host to allow Telegram's IP ranges 149.154.160.0/20 and 91.108.4.0/22."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Telegram refused to deliver the message (%s). Open your bot in Telegram and press Start first; for a group, add the bot to the group and double-check the numeric Chat ID."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Test message to the admin chat"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "The connection through the proxy failed. Check the proxy address, port and credentials, and make sure the proxy server is online and can itself reach Telegram. If your host filters DNS, use socks5h:// instead of socks5://. Technical details: %s"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "The webhook is registered to this site and Telegram reports no recent delivery errors."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "The webhook points to a different address (%s). Click \"Save Settings\" to point it back to this site."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Webhook (Telegram → your site)"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Your server could not reach api.telegram.org. This is expected on hosts inside Iran, where Telegram is filtered — turn on the Telegram proxy above, enter a proxy address, and run the test again. Technical details: %s"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "Your server reached Telegram, but Telegram rejected the bot token. Copy the token again from @BotFather — it looks like 123456789:ABC-DEF..."
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "direct connection, no proxy"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "through the proxy"
+msgstr ""
+
+#: TelegramConnectionTester.php
+msgid "✅ WooTower connection test: your store can send messages to this chat."
+msgstr ""
+
+#: wootower.php
+msgid "WooTower requires WooCommerce to be installed and active."
+msgstr ""

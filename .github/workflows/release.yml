@@ -33,6 +33,7 @@ jobs:
           mkdir -p build/wootower
           cp wootower.php readme.txt build/wootower/
           cp -r includes build/wootower/includes
+          cp -r languages build/wootower/languages
           mkdir -p build/wootower/dashboard-app
           cp -r dashboard-app/build build/wootower/dashboard-app/build
 
