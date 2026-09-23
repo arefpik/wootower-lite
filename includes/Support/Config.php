@@ -18,6 +18,8 @@ class Config {
 	private const OPTION_WEBHOOK_SECRET         = 'wootower_telegram_webhook_secret';
 	private const OPTION_NOTIFICATION_TEMPLATE  = 'wootower_notification_template';
 	private const OPTION_STATUS_BUTTONS         = 'wootower_status_buttons';
+	private const OPTION_TELEGRAM_PROXY_ENABLED = 'wootower_telegram_proxy_enabled';
+	private const OPTION_TELEGRAM_PROXY_URL     = 'wootower_telegram_proxy_url';
 
 	private const WEBHOOK_SECRET_LENGTH = 32;
 
@@ -100,5 +102,24 @@ class Config {
 				'status' => 'completed',
 			],
 		];
+	}
+
+	/**
+	 * Opt-in proxy used only for requests to api.telegram.org (see
+	 * TelegramProxy) — never applied automatically and never affects any
+	 * other outbound request WordPress makes. For hosts where
+	 * api.telegram.org is blocked (e.g. inside Iran).
+	 */
+	public static function isTelegramProxyEnabled(): bool {
+		return (bool) get_option( self::OPTION_TELEGRAM_PROXY_ENABLED, false );
+	}
+
+	public static function getTelegramProxyUrl(): string {
+		return (string) get_option( self::OPTION_TELEGRAM_PROXY_URL, '' );
+	}
+
+	public static function setTelegramProxy( bool $enabled, string $url ): void {
+		update_option( self::OPTION_TELEGRAM_PROXY_ENABLED, $enabled );
+		update_option( self::OPTION_TELEGRAM_PROXY_URL, $url );
 	}
 }

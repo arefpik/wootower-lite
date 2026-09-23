@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       WooTower
- * Plugin URI:        https://wootower.example
+ * Plugin URI:        https://wootower.pro
  * Description:       Manage your WooCommerce store from Telegram and a built-in wp-admin dashboard.
  * Version:           0.1.0
  * Requires at least: 6.0
@@ -54,6 +54,8 @@ function wootower_init() {
 		return;
 	}
 
+	\WooTower\Support\TelegramProxy::register();
+
 	add_action(
 		'rest_api_init',
 		function () {
@@ -85,6 +87,8 @@ function wootower_init() {
 		$settings_page = new \WooTower\Admin\SettingsPage();
 		add_action( 'admin_menu', [ $settings_page, 'registerMenu' ] );
 		add_action( 'admin_init', [ $settings_page, 'handleSave' ] );
+
+		\WooTower\Admin\ConnectionTestPanel::register();
 	}
 
 	// Classic (shortcode) checkout passes an order id; the Blocks/Store API

@@ -13,6 +13,7 @@ use WooTower\Channels\Telegram\TelegramChannel;
 use WooTower\Channels\Telegram\TelegramWebhookController;
 use WooTower\Support\Config;
 use WooTower\Support\Logger;
+use WooTower\Support\TelegramProxy;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -74,9 +75,18 @@ class SettingsPage {
 			return;
 		}
 
+		$proxyEnabled = isset( $_POST['wootower_telegram_proxy_enabled'] );
+		$proxyUrl     = isset( $_POST['wootower_telegram_proxy_url'] ) ? sanitize_text_field( wp_unslash( $_POST['wootower_telegram_proxy_url'] ) ) : '';
+
+		if ( $proxyEnabled && ! TelegramProxy::isValidProxyUrl( $proxyUrl ) ) {
+			add_action( 'admin_notices', [ $this, 'renderInvalidProxyUrlNotice' ] );
+			return;
+		}
+
 		Config::setTelegramBotToken( $botToken );
 		Config::setTelegramChatId( $chatId );
 		Config::setStatusButtons( $this->sanitizeStatusButtons() );
+		Config::setTelegramProxy( $proxyEnabled, $proxyUrl );
 
 		$template = isset( $_POST['wootower_notification_template'] ) ? sanitize_textarea_field( wp_unslash( $_POST['wootower_notification_template'] ) ) : '';
 
@@ -173,6 +183,12 @@ class SettingsPage {
 			'</p></div>';
 	}
 
+	public function renderInvalidProxyUrlNotice(): void {
+		echo '<div class="notice notice-error"><p>' .
+			esc_html__( 'Enter a valid proxy URL (e.g. http://host:port, https://host:port, socks5://host:port, or socks5h://host:port) before enabling the Telegram proxy.', 'wootower' ) .
+			'</p></div>';
+	}
+
 	public function renderInvalidChatIdNotice(): void {
 		echo '<div class="notice notice-error"><p>' .
 			esc_html__( 'Chat ID must be a numeric Telegram chat identifier, or left empty.', 'wootower' ) .
@@ -193,6 +209,8 @@ class SettingsPage {
 				<?php wp_nonce_field( self::NONCE_ACTION, self::NONCE_FIELD ); ?>
 				<table class="form-table">
 					<?php $this->renderConnectionFields(); ?>
+					<?php $this->renderProxyField(); ?>
+					<?php ConnectionTestPanel::renderRow(); ?>
 					<?php $this->renderTemplateField(); ?>
 					<?php $this->renderStatusButtonsField(); ?>
 				</table>
@@ -272,6 +290,51 @@ class SettingsPage {
 				/>
 				<p class="description">
 					<?php esc_html_e( 'A personal chat, a group, or a supergroup — get its numeric ID from a bot such as @userinfobot (add the bot to a group first to get that group\'s ID).', 'wootower' ); ?>
+				</p>
+			</td>
+		</tr>
+		<?php
+	}
+
+	/**
+	 * Opt-in, scoped to api.telegram.org requests only (see TelegramProxy) —
+	 * for admins whose server can't reach Telegram directly (e.g. hosts in
+	 * Iran, where it's blocked). Off by default; every other outbound
+	 * request WordPress makes is completely unaffected by this setting.
+	 */
+	private function renderProxyField(): void {
+		$enabled  = Config::isTelegramProxyEnabled();
+		$proxyUrl = Config::getTelegramProxyUrl();
+		?>
+		<tr>
+			<th scope="row">
+				<label for="wootower_telegram_proxy_url"><?php esc_html_e( 'Telegram Proxy', 'wootower' ); ?></label>
+			</th>
+			<td>
+				<label>
+					<input
+						type="checkbox"
+						id="wootower_telegram_proxy_enabled"
+						name="wootower_telegram_proxy_enabled"
+						<?php checked( $enabled ); ?>
+					/>
+					<?php esc_html_e( 'Route requests to the Telegram API through a proxy', 'wootower' ); ?>
+				</label>
+				<p>
+					<input
+						type="text"
+						id="wootower_telegram_proxy_url"
+						name="wootower_telegram_proxy_url"
+						value="<?php echo esc_attr( $proxyUrl ); ?>"
+						placeholder="socks5h://host:port"
+						class="regular-text"
+					/>
+				</p>
+				<p class="description">
+					<?php esc_html_e( 'Only use this if your server cannot reach api.telegram.org directly (for example, hosts in Iran, where Telegram is blocked). Every other request WordPress makes — cron, plugin updates, WooCommerce itself — is unaffected; this proxy is used for Telegram API calls only.', 'wootower' ); ?>
+				</p>
+				<p class="description">
+					<?php esc_html_e( 'Supported formats: http://, https://, socks5:// and socks5h:// (optionally with user:pass@). Prefer socks5h:// when your host\'s DNS is filtered, so the proxy resolves api.telegram.org instead of your server. Running a V2Ray/Xray client on your own VPS? Point this at its local SOCKS port, e.g. socks5h://127.0.0.1:10808.', 'wootower' ); ?>
 				</p>
 			</td>
 		</tr>
