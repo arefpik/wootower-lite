@@ -97,17 +97,27 @@ class Config {
 	 * Settings.
 	 */
 	public static function getNotificationTemplate(): string {
-		$template = get_option( self::OPTION_NOTIFICATION_TEMPLATE, '' );
+		$template = (string) get_option( self::OPTION_NOTIFICATION_TEMPLATE, '' );
 
-		return '' !== $template ? (string) $template : self::DEFAULT_NOTIFICATION_TEMPLATE;
+		// Before the default was translatable, saving the settings page stored the English default
+		// verbatim — treat that exact text as "still the default" so it follows the site language too.
+		return ( '' === $template || self::DEFAULT_NOTIFICATION_TEMPLATE === $template )
+			? self::getDefaultNotificationTemplate()
+			: $template;
 	}
 
 	public static function setNotificationTemplate( string $template ): void {
 		update_option( self::OPTION_NOTIFICATION_TEMPLATE, $template );
 	}
 
+	/**
+	 * The default message in the site's language. Kept as a literal (not the
+	 * constant) so it's a normal translatable string; it must stay identical
+	 * to DEFAULT_NOTIFICATION_TEMPLATE.
+	 */
 	public static function getDefaultNotificationTemplate(): string {
-		return self::DEFAULT_NOTIFICATION_TEMPLATE;
+		/* translators: The default new-order message. Keep every {placeholder} exactly as it is. */
+		return __( "New order #{order_number}\nCustomer: {customer}\nTotal: {total}\n{items}", 'wootower' );
 	}
 
 	/**
@@ -118,7 +128,26 @@ class Config {
 	public static function getStatusButtons(): array {
 		$buttons = get_option( self::OPTION_STATUS_BUTTONS, null );
 
-		return is_array( $buttons ) ? $buttons : self::getDefaultStatusButtons();
+		if ( ! is_array( $buttons ) ) {
+			return self::getDefaultStatusButtons();
+		}
+
+		// Buttons saved with the old, untranslated default labels are shown in the site's language;
+		// labels an admin typed themselves are left exactly as they are.
+		$defaultLabels = [
+			'Mark as Processing' => __( 'Mark as Processing', 'wootower' ),
+			'Mark as Completed'  => __( 'Mark as Completed', 'wootower' ),
+		];
+
+		return array_map(
+			static function ( $button ) use ( $defaultLabels ) {
+				if ( is_array( $button ) && isset( $button['label'] ) && isset( $defaultLabels[ $button['label'] ] ) ) {
+					$button['label'] = $defaultLabels[ $button['label'] ];
+				}
+				return $button;
+			},
+			$buttons
+		);
 	}
 
 	public static function setStatusButtons( array $buttons ): void {
@@ -128,11 +157,11 @@ class Config {
 	public static function getDefaultStatusButtons(): array {
 		return [
 			[
-				'label'  => 'Mark as Processing',
+				'label'  => __( 'Mark as Processing', 'wootower' ),
 				'status' => 'processing',
 			],
 			[
-				'label'  => 'Mark as Completed',
+				'label'  => __( 'Mark as Completed', 'wootower' ),
 				'status' => 'completed',
 			],
 		];

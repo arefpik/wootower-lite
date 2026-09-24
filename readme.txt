@@ -4,7 +4,7 @@ Tags: woocommerce, telegram, bale, orders, notifications
 Requires at least: 6.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,8 +32,9 @@ clearly marked, but are never active in the free version.
 
 == Installation ==
 
-1. Download the latest `wootower.zip` from the [Releases page](https://github.com/arefpik/wootower-lite/releases),
-   then in wp-admin go to **Plugins > Add New > Upload Plugin** and upload it — or
+1. Download the latest ZIP from [wootower.pro/download/lite](https://wootower.pro/download/lite) or the
+   [Releases page](https://github.com/arefpik/wootower-lite/releases), then in wp-admin go to
+   **Plugins > Add New > Upload Plugin** and upload it — or
    unzip it and upload the `wootower` folder to `/wp-content/plugins/` over (S)FTP.
 2. Activate the plugin. WooCommerce must already be installed and active.
 3. In wp-admin, go to **WooTower > Settings**.
@@ -78,6 +79,12 @@ They're shown so you know what's available, but they're intentionally inactive i
 the Free version. Clicking one shows an upgrade prompt instead of running the feature.
 
 == Changelog ==
+
+= 0.3.3 =
+* Fix: the default new-order message and the default status-button labels are now translated
+  (they were always English, even on a Persian site). Installs that saved settings with the old
+  English defaults get the translated text too; a message or buttons you wrote yourself are
+  never changed.
 
 = 0.3.2 =
 * New: "Upgrade to Pro" now goes through wootower.pro/go/lite, which applies the exclusive Pro
