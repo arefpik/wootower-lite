@@ -7,6 +7,33 @@
 [![PHP](https://img.shields.io/badge/PHP-7.4%2B-777bb4.svg)](https://php.net)
 [![WooCommerce](https://img.shields.io/badge/WooCommerce-required-96588a.svg)](https://woocommerce.com)
 
+<p align="center">
+  <img src="docs/notification-preview.svg" width="640" alt="A new-order notification from WooTower in a Persian chat, with the default status buttons">
+</p>
+
+**⬇️ Download:** [wootower.pro/download/lite](https://wootower.pro/download/lite) (direct) · [GitHub Releases](https://github.com/arefpik/wootower-lite/releases/latest) · **💎 Pro:** [wootower.pro](https://wootower.pro)
+
+---
+
+<div dir="rtl">
+
+## 🇮🇷 به فارسی
+
+**ووتاور Lite** افزونه‌ی رایگان و متن‌باز وردپرسه که فروشگاه ووکامرس رو به **ربات بله** و/یا **ربات تلگرام** وصل می‌کنه:
+
+- اعلان لحظه‌ای سفارش جدید (مشتری، مبلغ، اقلام) روی بله، تلگرام یا هر دو.
+- تغییر وضعیت سفارش با دکمه‌های زیر همون پیام — بدون ورود به پیشخوان وردپرس.
+- **بله روی هاست ایرانی بدون هیچ پراکسی کار می‌کنه.** برای تلگرام، پراکسی مخصوص تلگرام و دکمه‌ی «تست اتصال» داره.
+- پیام‌ها و تنظیمات فارسی (و انگلیسی، هماهنگ با زبان سایت).
+
+**دانلود مستقیم:** [wootower.pro/download/lite](https://wootower.pro/download/lite) — بعد از پیشخوان وردپرس: افزونه‌ها ← افزودن ← بارگذاری افزونه.
+
+**راه‌اندازی با بله (پیشنهادی برای هاست ایرانی):** توی اپ بله با BotFather یه ربات بساز و توکنش رو در «ووتاور ← تنظیمات» بذار و ذخیره کن. بعد به ربات پیام `/start` بده؛ شناسه‌ی چتت (Chat ID) رو جواب می‌ده — اون رو هم وارد کن و دوباره ذخیره کن. آموزش کامل: [ربات بله برای ووکامرس](https://wootower.pro/blog/robot-bale-woocommerce).
+
+**نسخه‌ی پرو:** جستجو و مدیریت کامل سفارش‌ها، استرداد وجه، یادداشت و فاکتور PDF، مدیریت محصول و تغییر گروهی قیمت، چند مدیر با نقش‌های جدا و گزارش فروش — همه از داخل بله یا تلگرام. خرید یک‌باره، بدون اشتراک ماهانه؛ قیمت روز و تخفیف‌ها روی [wootower.pro](https://wootower.pro). اگه از داخل خود افزونه روی «ارتقا به پرو» بزنی، تخفیف اختصاصی کاربرهای Lite خودکار اعمال می‌شه.
+
+</div>
+
 ---
 
 ## ✨ What it does
@@ -33,7 +60,7 @@ On top of that, a dashboard right inside wp-admin shows you how the bot's been d
 
 **Option A — download and upload (recommended for store owners)**
 
-1. Grab the latest `wootower.zip` from the [Releases page](https://github.com/arefpik/wootower-lite/releases).
+1. Download the latest ZIP — directly from [wootower.pro/download/lite](https://wootower.pro/download/lite), or `wootower.zip` from the [Releases page](https://github.com/arefpik/wootower-lite/releases/latest).
 2. In wp-admin: **Plugins → Add New → Upload Plugin**, choose the ZIP, and click **Install Now**.
 3. Activate it. WooCommerce must already be installed and active.
 
@@ -50,21 +77,23 @@ The dashboard's built assets are committed to the repo, so no build step is requ
 
 ## ⚙️ Setup
 
-1. Open a chat with **[@BotFather](https://t.me/BotFather)** on Telegram, send `/newbot`, and follow the prompts. You'll get back a **bot token**.
-2. Message your new bot at least once (or add it to a group), then grab your numeric **Chat ID** from **[@userinfobot](https://t.me/userinfobot)**.
-3. In wp-admin, go to **WooTower → Settings**, paste in the bot token and Chat ID, and click **Save Settings**.
+Connect Bale, Telegram, or both — new orders are announced on every connected messenger, and only the configured chat (on each messenger) can change an order's status.
 
-That's it — WooTower registers the Telegram webhook and bot commands automatically. No manual webhook configuration, no server-side setup.
+> ⚠️ Your site needs a publicly reachable HTTPS URL for the messenger to deliver button taps to it. This is true of virtually any real hosting, but won't work against `localhost`.
 
-> ⚠️ Your site needs a publicly reachable HTTPS URL for Telegram to deliver updates to it. This is true of virtually any real hosting, but won't work against `localhost`.
-
-### Bale (optional, works alongside Telegram)
+### Bale (recommended on Iranian hosts — no proxy needed)
 
 1. In the Bale app, open **BotFather**, create a bot, and copy its token.
 2. Paste it into **Bale Bot Token** under **WooTower → Settings → Bale** and save.
 3. Send `/start` to your bot in Bale — it replies with your Chat ID. Paste it into the Bale **Chat ID** field and save again.
 
-New orders are then announced on every connected messenger. Only the configured chat (on each messenger) can change an order's status.
+### Telegram
+
+1. Open a chat with **@BotFather** on Telegram ([t.me/BotFather](https://t.me/BotFather) — `t.me` links don't open inside Iran without a VPN; search for the name in the app instead), send `/newbot`, and follow the prompts. You'll get back a **bot token**.
+2. In wp-admin, go to **WooTower → Settings**, paste in the bot token and click **Save Settings**.
+3. Send `/start` to your bot — it replies with your numeric **Chat ID** (or add the bot to a group and use the group's ID). Paste it into the **Chat ID** field and save again.
+
+WooTower registers the webhook and bot commands automatically — no manual webhook configuration, no server-side setup.
 
 ### Hosted in Iran (or anywhere Telegram is blocked)?
 
@@ -130,7 +159,16 @@ npm run build    # rebuilds dashboard-app/build/, which is what wp-admin actuall
 
 ## 💎 WooTower Pro
 
-Product, order, and customer management from Telegram, real sales analytics (revenue, completion rate, best-sellers), and multi-admin access are part of **WooTower Pro** — a one-time purchase, licensed per domain. They're visible in both the dashboard and the bot so you know what's available, but never functional in the free version; tapping one just shows an upgrade prompt.
+**[WooTower Pro](https://wootower.pro)** turns the same bot into a full store-management panel, on Telegram and Bale:
+
+- Order search, filters and pagination; partial or full refunds with double-refund protection; order notes; PDF invoices
+- Product price, stock and image editing, variations, and bulk price changes by search
+- Multiple admins with Owner / Manager / Viewer roles, and team group chats
+- Real sales analytics (revenue, completion rate, best-seller, trend chart) and a `/report` command
+
+One-time purchase, licensed per domain, no subscription — see [wootower.pro](https://wootower.pro) for today's price, agency bundles, and the [changelog](https://wootower.pro/changelog). Clicking **Upgrade to Pro** inside the Lite dashboard applies the exclusive Lite-user discount automatically.
+
+Pro features are visible in the free version's dashboard so you know what's available, but never functional there; clicking one just shows an upgrade prompt.
 
 ---
 

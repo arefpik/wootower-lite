@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img" aria-label="WooTower new-order notification in a Persian chat, with status buttons">
+  <!-- Illustration of the plugin's default Persian new-order message (Lite's default template and
+       default status buttons). Order data is sample data. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f1b3d"/>
+      <stop offset="1" stop-color="#2f6fed"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="360" rx="24" fill="url(#bg)"/>
+  <g font-family="Vazirmatn, Tahoma, 'Segoe UI', Arial, sans-serif" direction="rtl">
+    <!-- chat header -->
+    <rect x="200" y="28" width="320" height="304" rx="22" fill="#eef2f8"/>
+    <rect x="200" y="28" width="320" height="52" rx="22" fill="#1d2b53"/>
+    <rect x="200" y="58" width="320" height="22" fill="#1d2b53"/>
+    <text x="500" y="60" fill="#fff" font-size="15" font-weight="700" text-anchor="start">ربات فروشگاه</text>
+    <!-- message bubble -->
+    <rect x="216" y="94" width="288" height="128" rx="14" fill="#fff"/>
+    <text x="490" y="124" fill="#111827" font-size="14.5" font-weight="700" text-anchor="start">سفارش جدید #1024</text>
+    <text x="490" y="152" fill="#374151" font-size="13.5" text-anchor="start">مشتری: سارا محمدی</text>
+    <text x="490" y="178" fill="#374151" font-size="13.5" text-anchor="start">مبلغ کل: 2,450,000 تومان</text>
+    <text x="490" y="204" fill="#374151" font-size="13.5" text-anchor="start">- کیف چرمی x1 — 2,450,000 تومان</text>
+    <!-- status buttons -->
+    <rect x="216" y="232" width="288" height="36" rx="10" fill="#fff" stroke="#c7d2fe"/>
+    <text x="360" y="255" fill="#2f6fed" font-size="13" font-weight="700" text-anchor="middle">علامت‌گذاری به‌عنوان در حال پردازش</text>
+    <rect x="216" y="276" width="288" height="36" rx="10" fill="#fff" stroke="#c7d2fe"/>
+    <text x="360" y="299" fill="#2f6fed" font-size="13" font-weight="700" text-anchor="middle">علامت‌گذاری به‌عنوان تکمیل‌شده</text>
+  </g>
+  <g font-family="'Segoe UI', Arial, sans-serif" fill="#fff">
+    <text x="36" y="72" font-size="26" font-weight="800">WooTower</text>
+    <text x="36" y="100" font-size="14" opacity=".8">Telegram &amp; Bale</text>
+    <text x="684" y="318" font-size="13" opacity=".7" text-anchor="end">Sample order data</text>
+  </g>
+</svg>
